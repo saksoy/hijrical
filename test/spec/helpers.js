@@ -1,0 +1,3 @@
+beforeEach(function () {
+    "use strict";
+});

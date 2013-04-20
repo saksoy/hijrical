@@ -17,15 +17,15 @@ describe("Hijrical utility functions", function () {
     });
 
     it("should be 25th March 2011 on AJD 2455645.5.", function () {
-        var x = moment([2011, 3, 25]),
-            y = hijrical.utils.ajdToGregorian(2455645.5);
-        expect(x.date()).toBe(y.date());
-        expect(x.month()).toBe(y.month());
-        expect(x.year()).toBe(y.year());
-        expect(x.hours()).toBe(y.hours());
-        expect(x.minutes()).toBe(y.minutes());
-        expect(x.seconds()).toBe(y.seconds());
-        expect(x.milliseconds()).toBe(y.milliseconds());
+        var expected = moment([2011, 3, 25]),
+            observed = hijrical.utils.ajdToGregorian(2455645.5);
+        expect(observed.date()).toBe(expected.date());
+        expect(observed.month()).toBe(expected.month());
+        expect(observed.year()).toBe(expected.year());
+        expect(observed.hours()).toBe(expected.hours());
+        expect(observed.minutes()).toBe(expected.minutes());
+        expect(observed.seconds()).toBe(expected.seconds());
+        expect(observed.milliseconds()).toBe(expected.milliseconds());
     });
 });
 
@@ -43,6 +43,18 @@ describe("Hijrical date", function () {
     it("should be AJD 2455645.5 on 20th Rabi al-Aakhar 1432H.", function () {
         var x = new hijrical.Date(20, 4, 1432);
         expect(x.ajd()).toBe(2455645.5);
+    });
+
+    it("should be 25th March 2011 on 20th Rabi al-Aakhar 1432H.", function () {
+        var expected = moment([2011, 3, 25]),
+            observed = (new hijrical.Date(20, 4, 1432)).gregorian();
+        expect(observed.date()).toBe(expected.date());
+        expect(observed.month()).toBe(expected.month());
+        expect(observed.year()).toBe(expected.year());
+        expect(observed.hours()).toBe(expected.hours());
+        expect(observed.minutes()).toBe(expected.minutes());
+        expect(observed.seconds()).toBe(expected.seconds());
+        expect(observed.milliseconds()).toBe(expected.milliseconds());
     });
 
     it("should not be a Kabisa year in 1432H.", function () {
@@ -66,10 +78,18 @@ describe("Hijrical date", function () {
     });
 
     it("should be 20th Rabi al-Aakhar 1432H on AJD 2455645.5.", function () {
-        var x = new hijrical.Date(20, 4, 1432),
-            y = hijrical.Date.fromAJD(2455645.5);
-        expect(x.day).toBe(y.day);
-        expect(x.month).toBe(y.month);
-        expect(x.year).toBe(y.year);
+        var expected = new hijrical.Date(20, 4, 1432),
+            observed = hijrical.Date.fromAJD(2455645.5);
+        expect(observed.day).toBe(expected.day);
+        expect(observed.month).toBe(expected.month);
+        expect(observed.year).toBe(expected.year);
+    });
+
+    it("should be 20th Rabi al-Aakhar 1432H on 25th March 2011.", function () {
+        var expected = new hijrical.Date(20, 4, 1432),
+            observed = hijrical.Date.gregorianToHijri(moment([2011, 3, 25]));
+        expect(observed.day).toBe(expected.day);
+        expect(observed.month).toBe(expected.month);
+        expect(observed.year).toBe(expected.year);
     });
 });
